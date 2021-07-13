@@ -6,28 +6,30 @@ pipeline {
   }
   agent any
   stages {
-     stage('Building war') {
+    stage('Gradle build') {
+      node {
         if (isUnix()) {
           sh 'gradlew clean build -x test'
-      } else {
+        } else {
           bat 'gradlew clean build -x test'
+        }
       }
     }
-    stage('Building image') {
-      steps{
+    stage('Building docker image') {
+      steps {
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-    stage('Deploy image') {
-        steps{
-            script{
-                docker.withRegistry("https://" + registry, "ecr:eu-central-1:" + registryCredential) {
-                    dockerImage.push()
-                }
-            }
+    stage('Deploy docker image') {
+      steps {
+        script {
+          docker.withRegistry("https://" + registry, "ecr:eu-central-1:" + registryCredential) {
+            dockerImage.push()
+          }
         }
+      }
     }
   }
 }
