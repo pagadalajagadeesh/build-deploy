@@ -7,11 +7,13 @@ pipeline {
   agent any
   stages {
     stage('Gradle build') {
-      node {
-        if (isUnix()) {
-          sh 'gradlew clean build -x test'
-        } else {
-          bat 'gradlew clean build -x test'
+      steps{
+        node {
+          if (isUnix()) {
+            sh 'gradlew clean build -x test'
+          } else {
+            bat 'gradlew clean build -x test'
+          }
         }
       }
     }
