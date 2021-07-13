@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = '013570547371.dkr.ecr.us-east-1.amazonaws.com/build-deploy'
+    registry = 'build-deploy'
     registryCredential = 'AKIAQGKG6D2V6SW4JDAG'
     dockerImage = ''
   }
