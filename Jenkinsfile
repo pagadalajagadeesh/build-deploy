@@ -7,15 +7,7 @@ pipeline {
   agent any
   stages {
     stage('Gradle build') {
-      steps{
-        node {
-          if (isUnix()) {
-            sh 'gradlew clean build -x test'
-          } else {
-            bat 'gradlew clean build -x test'
-          }
-        }
-      }
+      bat 'gradlew clean build -x test'
     }
     stage('Building docker image') {
       steps {
