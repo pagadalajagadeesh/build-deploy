@@ -7,7 +7,9 @@ pipeline {
   agent any
   stages {
     stage('Gradle build') {
-      bat 'gradlew clean build -x test'
+      steps {
+        bat 'gradlew clean build -x test'
+      }
     }
     stage('Building docker image') {
       steps {
